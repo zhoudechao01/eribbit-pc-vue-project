@@ -1,30 +1,23 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <!-- vue2.x需要根元素，vue3.x可以不用 -->
+  <div>
+    App
+    <p>{{ $store.state.username }}</p>
+    <p>{{ $store.getters['newName']}}</p>
+    <button @click="mutationsFn">mutationsFn</button>
+  </div>
 </template>
-
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import { useStore } from 'vuex'
+export default {
+  name: 'App',
+  setup () {
+    const store = useStore()
+    console.log(store.state)
+    const mutationsFn = () => {
+      store.commit('updateName')
     }
+    return { mutationsFn }
   }
 }
-</style>
+</script>
